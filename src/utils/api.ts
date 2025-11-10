@@ -2,7 +2,7 @@ import { sanitizeObject } from './sanitize';
 import { useAuthStore } from '../store/auth';
 
 const API_BASE = import.meta.env.VITE_API_BASE || 'https://datastudio-api.onrender.com/api';
-const API_KEY = import.meta.env.VITE_API_KEY || '';
+const API_KEY = import.meta.env.PRIVATE_VITE_API_KEY || '';
 
 export async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> {
   const state = useAuthStore.getState();
