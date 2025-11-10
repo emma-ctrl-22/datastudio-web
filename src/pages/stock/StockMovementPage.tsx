@@ -38,7 +38,7 @@ export function StockMovementPage() {
     }));
   };
 
-  const handleDateRangeChange = (dates: (dayjs.Dayjs | null)[] | null, dateStrings: [string, string]) => {
+  const handleDateRangeChange = (_dates: (dayjs.Dayjs | null)[] | null, dateStrings: [string, string]) => {
     setFilters(prev => ({
       ...prev,
       start_date: dateStrings[0],
