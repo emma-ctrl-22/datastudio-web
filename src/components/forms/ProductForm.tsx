@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Input, Button, Select, InputNumber, Switch, Spin, Alert, Tabs, Table, Modal, Popconfirm, Space, Upload ,Row, Col} from 'antd';
+import { Form, Input, Button, Select, InputNumber, Switch, Spin, Alert, Tabs, Table, Modal, Popconfirm, Space,Row, Col} from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import {
   useGetProductQuery,
@@ -23,7 +23,7 @@ import type {
   ProductSupplier,
   ProductImage,
   LinkProductSupplierPayload,
-  UpdateProductSupplierPayload,
+  // UpdateProductSupplierPayload,
   AddProductImagePayload,
 } from '../../types';
 import { PlusOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons';

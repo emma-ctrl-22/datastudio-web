@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { Card, Descriptions, Spin, Alert, Table, Space, Tag } from 'antd';
+import { Card, Descriptions, Spin, Alert, Table, Tag } from 'antd';
 import { PageHeader } from '../../components/shared/PageHeader';
 import { useGetSupplierQuery, useGetProductsBySupplierQuery } from '../../api/SupplierService';
 import type { ProductSupplier } from '../../types';

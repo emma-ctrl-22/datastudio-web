@@ -1,6 +1,6 @@
 import { Card, List, Avatar } from 'antd';
 import { CrownOutlined } from '@ant-design/icons';
-import type { TopSupplier } from '../../../types';
+import type { TopSupplier } from '../../types';
 
 interface TopSuppliersListProps {
   data: TopSupplier[];

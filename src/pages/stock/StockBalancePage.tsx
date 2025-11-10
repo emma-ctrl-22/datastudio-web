@@ -7,8 +7,6 @@ import { useListProductsQuery } from '../../api/ProductService'; // To get produ
 import type { StockBalance } from '../../types';
 import type { TableProps } from 'antd';
 
-const { Option } = Select;
-
 export function StockBalancePage() {
   const [filters, setFilters] = useState({ product_id: '' });
 

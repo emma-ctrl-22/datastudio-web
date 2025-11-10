@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Input, Button, Select, DatePicker, Space, Card, Table, InputNumber, Popconfirm, Alert, Tag,Row,Col,Spin } from 'antd';
+import { Form, Input, Button, Select, DatePicker, Space, Card,  InputNumber, Alert, Tag,Row,Col,Spin } from 'antd';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
 import dayjs from 'dayjs';
@@ -14,7 +14,7 @@ import { useListSuppliersQuery } from '../../api/SupplierService';
 import { useListProductsQuery } from '../../api/ProductService';
 import { hasPermission } from '../../utils/permissions';
 import { useAuthStore } from '../../store/auth';
-import type { CreatePurchaseOrderPayload, UpdatePurchaseOrderPayload, PurchaseOrderLine } from '../../types';
+import type { CreatePurchaseOrderPayload, UpdatePurchaseOrderPayload } from '../../types';
 
 const { Option } = Select;
 
@@ -28,8 +28,7 @@ export function PurchaseOrderPage() {
   const isEditMode = !!id;
 
   const canUpdate = hasPermission(permissions, 'purchase_orders', 'update');
-  const canCreate = hasPermission(permissions, 'purchase_orders', 'create');
-  const canRead = hasPermission(permissions, 'purchase_orders', 'read');
+
 
   const { data: purchaseOrder, isLoading: isLoadingPO, error: poError } = useGetPurchaseOrderQuery(id!, {
     enabled: isEditMode,

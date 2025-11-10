@@ -1,6 +1,6 @@
 import { Card, Col, Row, Statistic } from 'antd';
 import { DollarOutlined, DatabaseOutlined } from '@ant-design/icons';
-import type { StockValuation } from '../../../types';
+import type { StockValuation } from '../../types';
 
 interface KeyMetricsProps {
   stock_valuation: StockValuation;

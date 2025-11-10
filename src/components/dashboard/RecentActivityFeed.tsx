@@ -1,6 +1,6 @@
 import { Card, List, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import type { RecentlyReceivedItem } from '../../../types';
+import type { RecentlyReceivedItem } from '../../types';
 
 const { Text } = Typography;
 

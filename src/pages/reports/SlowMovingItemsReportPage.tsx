@@ -8,10 +8,16 @@ import { useAuthStore } from '../../store/auth';
 import type { MoversReportItem } from '../../types';
 import type { TableProps } from 'antd';
 
+type FilterState = {
+  page: number;
+  pageSize: number;
+  time_window?: '30d' | '90d' | '1y';
+};
+
 const { Option } = Select;
 
 export function SlowMovingItemsReportPage() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     page: 1,
     pageSize: 10,
     time_window: '30d', // Default to last 30 days
@@ -57,7 +63,7 @@ export function SlowMovingItemsReportPage() {
       <Space className="mb-4">
         <Select
           placeholder="Time Window"
-          onChange={(value) => setFilters(prev => ({ ...prev, time_window: value, page: 1 }))}
+          onChange={(value: '30d' | '90d' | '1y' | undefined) => setFilters(prev => ({ ...prev, time_window: value, page: 1 }))}
           value={filters.time_window}
           style={{ width: 150 }}
         >

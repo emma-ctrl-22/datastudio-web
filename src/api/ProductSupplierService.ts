@@ -6,7 +6,7 @@ import type {
   UpdateProductSupplierPayload,
 } from '../types';
 
-export function useListProductSuppliersQuery(productId: string, options?: UseQueryOptions<ProductSupplier[], Error>) {
+export function useListProductSuppliersQuery(productId: string, options?: Omit<UseQueryOptions<ProductSupplier[], Error>, 'queryKey' | 'queryFn'>) {
   return useQuery<ProductSupplier[], Error>({
     queryKey: ['product-suppliers', productId],
     queryFn: () => apiFetch<ProductSupplier[]>(`/products/${productId}/suppliers`),

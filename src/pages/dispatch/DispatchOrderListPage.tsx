@@ -1,27 +1,34 @@
 import { useState } from 'react';
-import { Button, Select, Space, Alert, Popconfirm, Tag, DatePicker } from 'antd';
+import { Button, Select, Space, Alert, Popconfirm, Tag, DatePicker,type TableProps } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/shared/PageHeader';
 import { SharedTable } from '../../components/shared/SharedTable';
-import { useListDispatchOrdersQuery, useDeleteDispatchOrderMutation, useUpdateDispatchOrderMutation } from '../../api/DispatchOrderService';
+import { useListDispatchOrdersQuery, useDeleteDispatchOrderMutation } from '../../api/DispatchOrderService';
 import { hasPermission } from '../../utils/permissions';
 import { useAuthStore } from '../../store/auth';
 import type { DispatchOrder } from '../../types';
-import type { TableProps } from 'antd';
 import dayjs from 'dayjs';
-import type { RangeValue } from 'rc-picker/lib/interface';
 
 const { RangePicker } = DatePicker;
 
+type FilterState = {
+  page: number;
+  pageSize: number;
+  recipient_type?: 'hospital' | 'clinic' | 'customer' | 'internal';
+  status?: DispatchOrder['status'];
+  start_date?: string;
+  end_date?: string;
+};
+
 export function DispatchOrderListPage() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     page: 1,
     pageSize: 10,
-    recipient_type: '',
-    status: '',
-    start_date: '',
-    end_date: '',
+    recipient_type: undefined,
+    status: undefined,
+    start_date: undefined,
+    end_date: undefined,
   });
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -40,12 +47,6 @@ export function DispatchOrderListPage() {
     },
   });
 
-  const updateStatusMutation = useUpdateDispatchOrderMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['dispatch-orders'] });
-    },
-  });
-
   const handleDelete = (id: string) => {
     deleteMutation.mutate(id);
   };
@@ -58,11 +59,11 @@ export function DispatchOrderListPage() {
     }));
   };
 
-  const handleDateRangeChange = (dates: RangeValue<dayjs.Dayjs>, dateStrings: [string, string]) => {
+  const handleDateRangeChange = (_dates: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null, dateStrings: [string, string]) => {
     setFilters(prev => ({
       ...prev,
-      start_date: dateStrings[0] || '',
-      end_date: dateStrings[1] || '',
+      start_date: dateStrings[0] || undefined,
+      end_date: dateStrings[1] || undefined,
       page: 1,
     }));
   };

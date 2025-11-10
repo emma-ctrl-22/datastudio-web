@@ -1,6 +1,6 @@
 import { Table, Tag } from 'antd';
 import { Link } from 'react-router-dom';
-import type { LowStockProduct } from '../../../types';
+import type { LowStockProduct } from '../../types';
 
 interface LowStockProductsProps {
   data: LowStockProduct[];

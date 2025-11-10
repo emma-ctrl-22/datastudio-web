@@ -86,7 +86,7 @@ export function GoodsReceiptPage() {
       title: 'Received',
       dataIndex: 'quantity_received',
       key: 'quantity_received',
-      render: (text: any, record: any, index: number) => (
+      render: (_text: any, record: any, index: number) => (
         <Form.Item
           name={[index, 'quantity_received']}
           rules={[{ required: true, message: 'Required' }, { type: 'number', min: 0, max: record.quantity_ordered, message: `Max ${record.quantity_ordered}` }]}
@@ -100,7 +100,7 @@ export function GoodsReceiptPage() {
       title: 'Unit Cost',
       dataIndex: 'unit_cost',
       key: 'unit_cost',
-      render: (text: any, record: any, index: number) => (
+      render: (_text: any, record: any, index: number) => (
         <Form.Item
           name={[index, 'unit_cost']}
           rules={[{ required: true, message: 'Required' }]}
@@ -114,7 +114,7 @@ export function GoodsReceiptPage() {
       title: 'Batch No.',
       dataIndex: 'batch_number',
       key: 'batch_number',
-      render: (text: any, record: any, index: number) => (
+      render: (_text: any, _record: any, index: number) => (
         <Form.Item name={[index, 'batch_number']}>
           <Input />
         </Form.Item>
@@ -123,8 +123,7 @@ export function GoodsReceiptPage() {
     {
       title: 'Serial No.',
       dataIndex: 'serial_number',
-      key: 'serial_number',
-      render: (text: any, record: any, index: number) => (
+      render: (_text: any, _record: any, index: number) => (
         <Form.Item name={[index, 'serial_number']}>
           <Input />
         </Form.Item>
@@ -134,7 +133,7 @@ export function GoodsReceiptPage() {
       title: 'Expiry Date',
       dataIndex: 'expiry_date',
       key: 'expiry_date',
-      render: (text: any, record: any, index: number) => (
+      render: (_text: any, _record: any, index: number) => (
         <Form.Item name={[index, 'expiry_date']}>
           <DatePicker />
         </Form.Item>

@@ -1,5 +1,5 @@
-export type Permission = { resource: string; action: string };
-export type Role = { id: string; name: string };
+export type Permission = { id: string; resource: string; action: string };
+export type Role = { id: string; name: string; description?: string | null; };
 export type User = { id: string; username: string; email: string; is_active: boolean };
 
 export type AuthResponse = {
@@ -208,6 +208,7 @@ export type ListDispatchOrdersParams = {
   page?: number;
   pageSize?: number;
   status?: DispatchOrder['status'];
+  recipient_type?: 'hospital' | 'clinic' | 'customer' | 'internal';
   start_date?: string;
   end_date?: string;
 };
@@ -215,6 +216,9 @@ export type DispatchOrderListResponse = Pagination & { items: DispatchOrder[] };
 export type CreateDispatchOrderPayload = {
   dispatch_number: string;
   recipient_name: string;
+  recipient_type?: 'hospital' | 'clinic' | 'customer' | 'internal';
+  contact_phone?: string;
+  delivery_address?: string;
   dispatch_date: string;
   notes?: string;
   lines: Array<{
@@ -222,7 +226,15 @@ export type CreateDispatchOrderPayload = {
     quantity: number;
   }>;
 };
-export type UpdateDispatchOrderPayload = { status: DispatchOrder['status'] };
+export type UpdateDispatchOrderPayload = {
+  status?: 'draft' | 'confirmed' | 'dispatched' | 'delivered' | 'cancelled';
+  recipient_name?: string;
+  recipient_type?: 'hospital' | 'clinic' | 'customer' | 'internal';
+  contact_phone?: string;
+  delivery_address?: string;
+  dispatch_date?: string;
+  notes?: string;
+};
 
 
 //-================================================================================================
@@ -308,6 +320,50 @@ export type StockValuation = {
   total_quantity: number;
   total_value: string;
   average_cost: string;
+};
+
+export type LowStockProduct = {
+  product_id: string;
+  product_name: string;
+  product_code: string;
+  current_quantity: number;
+  reorder_level: number;
+  primary_supplier_name: string | null;
+};
+
+export type OrderStatusSummary = {
+  status: string;
+  count: number;
+};
+
+export type StockMovementSummary = {
+  total_in: number;
+  total_out: number;
+  total_adjustment: number;
+};
+
+export type TopSupplier = {
+  supplier_id: string;
+  supplier_name: string;
+  total_po_value: string;
+};
+
+export type RecentlyReceivedItem = {
+  product_id: string;
+  product_name: string;
+  quantity_received: number;
+  supplier_name: string;
+  received_date: string;
+};
+
+export type EnhancedDashboardSummary = {
+  stock_valuation: StockValuation;
+  low_stock_products: LowStockProduct[];
+  purchase_order_status_summary: OrderStatusSummary[];
+  dispatch_order_status_summary: OrderStatusSummary[];
+  stock_movement_summary: StockMovementSummary;
+  top_suppliers: TopSupplier[];
+  recently_received_items: RecentlyReceivedItem[];
 };
 
 export type DashboardSummary = {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, Select, Space, Alert, Popconfirm, Tag, DatePicker } from 'antd';
+import { Button, Select, Space, Alert, Popconfirm, Tag, DatePicker,type TableProps } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/shared/PageHeader';
@@ -9,20 +9,28 @@ import { useListSuppliersQuery } from '../../api/SupplierService';
 import { hasPermission } from '../../utils/permissions';
 import { useAuthStore } from '../../store/auth';
 import type { PurchaseOrder } from '../../types';
-import type { TableProps } from 'antd';
 import dayjs from 'dayjs';
 
-const { Search } = Input;
+// const { Search } = Input;
 const { RangePicker } = DatePicker;
 
+type FilterState = {
+  page: number;
+  pageSize: number;
+  supplier_id?: string;
+  status?: PurchaseOrder['status'];
+  start_date?: string;
+  end_date?: string;
+};
+
 export function PurchaseOrderListPage() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     page: 1,
     pageSize: 10,
-    supplier_id: '',
-    status: '',
-    start_date: '',
-    end_date: '',
+    supplier_id: undefined,
+    status: undefined,
+    start_date: undefined,
+    end_date: undefined,
   });
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -54,11 +62,11 @@ export function PurchaseOrderListPage() {
     }));
   };
 
-  const handleDateRangeChange = (dates: any, dateStrings: [string, string]) => {
+  const handleDateRangeChange = (_dates: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null, dateStrings: [string, string]) => {
     setFilters(prev => ({
       ...prev,
-      start_date: dateStrings[0],
-      end_date: dateStrings[1],
+      start_date: dateStrings[0] || undefined,
+      end_date: dateStrings[1] || undefined,
       page: 1,
     }));
   };
@@ -141,20 +149,24 @@ export function PurchaseOrderListPage() {
         <Select
           placeholder="Filter by supplier"
           loading={isLoadingSuppliers}
-          onChange={(value) => setFilters(prev => ({ ...prev, supplier_id: value, page: 1 }))}
+          onChange={(value: string | undefined) => setFilters(prev => ({ ...prev, supplier_id: value, page: 1 }))}
           style={{ width: 200 }}
           allowClear
           showSearch
           optionFilterProp="children"
-          filterOption={(input, option) =>
-            (option?.children as string)?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
+          filterOption={(input, option) => {
+            const children = option?.children;
+            if (children && typeof children === 'string') {
+              return (children as unknown as string).toLowerCase().includes(input.toLowerCase());
+            }
+            return false;
+          }}
         >
           {suppliers?.map(supplier => <Select.Option key={supplier.id} value={supplier.id}>{supplier.name}</Select.Option>)}
         </Select>
         <Select
           placeholder="Filter by status"
-          onChange={(value) => setFilters(prev => ({ ...prev, status: value, page: 1 }))}
+          onChange={(value: PurchaseOrder['status'] | undefined) => setFilters(prev => ({ ...prev, status: value, page: 1 }))}
           style={{ width: 150 }}
           allowClear
         >

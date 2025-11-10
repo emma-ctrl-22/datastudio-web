@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Select, Space, Alert } from 'antd';
+import { Button, Select, Space, Alert} from 'antd';
 import { PageHeader } from '../../components/shared/PageHeader';
 import { SharedTable } from '../../components/shared/SharedTable';
 import { useFastMovingItemsQuery } from '../../api/ReportService';
@@ -7,11 +7,15 @@ import { hasPermission } from '../../utils/permissions';
 import { useAuthStore } from '../../store/auth';
 import type { MoversReportItem } from '../../types';
 import type { TableProps } from 'antd';
-
 const { Option } = Select;
+type FilterState = {
+  page: number;
+  pageSize: number;
+  time_window?: '30d' | '90d' | '1y';
+};
 
 export function FastMovingItemsReportPage() {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<FilterState>({
     page: 1,
     pageSize: 10,
     time_window: '30d', // Default to last 30 days
@@ -57,7 +61,7 @@ export function FastMovingItemsReportPage() {
       <Space className="mb-4">
         <Select
           placeholder="Time Window"
-          onChange={(value) => setFilters(prev => ({ ...prev, time_window: value, page: 1 }))}
+          onChange={(value: '30d' | '90d' | '1y' | undefined) => setFilters(prev => ({ ...prev, time_window: value, page: 1 }))}
           value={filters.time_window}
           style={{ width: 150 }}
         >

@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
-import { Form, Input, Button, Select, Spin, Alert, Checkbox, Row, Col } from 'antd';
+import { Form, Input, Button, Spin, Alert, Checkbox, Row, Col } from 'antd';
 import { useForm } from 'antd/es/form/Form';
 import { useCreateRoleMutation, useUpdateRoleMutation, useListPermissionsQuery, useGetRoleQuery } from '../../api/RoleService';
 import type { CreateRolePayload, UpdateRolePayload } from '../../types';
-
-const { Option } = Select;
 
 type RoleFormProps = {
   id?: string;

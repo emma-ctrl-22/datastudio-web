@@ -1,6 +1,6 @@
 import { Card } from 'antd';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import type { OrderStatusSummary } from '../../../types';
+import type { OrderStatusSummary } from '../../types';
 
 interface OrderStatusPieChartProps {
   title: string;
@@ -35,7 +35,7 @@ export function OrderStatusPieChart({ title, data, loading }: OrderStatusPieChar
             fill="#8884d8"
             dataKey="count"
             nameKey="status"
-            label={({ status, percent }) => `${status}: ${(percent * 100).toFixed(0)}%`}
+            label={({ status, percent }) => `${status}: ${((percent as number) * 100).toFixed(0)}%`}
           >
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={COLORS[entry.status] || '#8884d8'} />

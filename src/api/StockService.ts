@@ -1,6 +1,6 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { apiFetch } from '../utils/api';
-import type { CurrentStockLevel, StockMovementListResponse, ListStockMovementsParams } from '../types';
+import type {  StockMovementListResponse, ListStockMovementsParams ,StockBalance} from '../types';
 
 export type ListStockBalancesParams = {
   product_id?: string;

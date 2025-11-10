@@ -9,7 +9,7 @@ import type {
   UpdateUserPayload,
   UserListResponse,
   AssignRolePayload,
-  Role,
+
   User,
 } from '../types';
 

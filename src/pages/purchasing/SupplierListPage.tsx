@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Input, Space, Switch, Alert, Popconfirm } from 'antd';
+import { Button, Space, Switch, Alert, Popconfirm } from 'antd';
 import { useQueryClient } from '@tanstack/react-query';
 import { Link, useNavigate } from 'react-router-dom';
 import { PageHeader } from '../../components/shared/PageHeader';
@@ -10,10 +10,12 @@ import { useAuthStore } from '../../store/auth';
 import type { Supplier } from '../../types';
 import type { TableProps } from 'antd';
 
-const { Search } = Input;
+
+
 
 export function SupplierListPage() {
   const [filters, setFilters] = useState({ activeOnly: false });
+  console.log('SupplierListPage filters:', filters, setFilters);
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const permissions = useAuthStore((s) => s.permissions);

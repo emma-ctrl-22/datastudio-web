@@ -11,7 +11,7 @@ import {
   useReactivateUserMutation,
   useAssignRoleMutation,
   useRemoveRoleMutation,
-  useCreateUserMutation,
+  // useCreateUserMutation,
 } from '../../api/UserService';
 import { useListRolesQuery } from '../../api/RoleService';
 import { hasPermission } from '../../utils/permissions';
@@ -50,12 +50,12 @@ export function UserManagementPage() {
     enabled: canManageRoles && (isRoleModalVisible || isUserModalVisible),
   });
 
-  const createUserMutation = useCreateUserMutation({
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      setIsUserModalVisible(false);
-    },
-  });
+  // const createUserMutation = useCreateUserMutation({
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries({ queryKey: ['users'] });
+  //     setIsUserModalVisible(false);
+  //   },
+  // });
 
   const deactivateUserMutation = useDeactivateUserMutation({
     onSuccess: () => {

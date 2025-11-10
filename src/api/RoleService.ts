@@ -2,7 +2,7 @@ import { useMutation, useQuery, type UseMutationOptions, type UseQueryOptions } 
 import { apiFetch } from '../utils/api';
 import type { Role, Permission, CreateRolePayload, UpdateRolePayload } from '../types';
 
-export function useListRolesQuery(options?: UseQueryOptions<Role[], Error>) {
+export function useListRolesQuery(options?: Omit<UseQueryOptions<Role[], Error>, 'queryKey' | 'queryFn'>) {
   return useQuery<Role[], Error>({
     queryKey: ['roles'],
     queryFn: () => apiFetch<Role[]>('/roles'),
@@ -39,7 +39,7 @@ export function useDeleteRoleMutation(options?: UseMutationOptions<{ success: bo
   });
 }
 
-export function useGetRoleQuery(id: string, options?: UseQueryOptions<Role & { permissions: Permission[] }, Error>) {
+export function useGetRoleQuery(id: string, options?: Omit<UseQueryOptions<Role & { permissions: Permission[] }, Error>, 'queryKey' | 'queryFn'>) {
   return useQuery<Role & { permissions: Permission[] }, Error>({
     queryKey: ['role', id],
     queryFn: () => apiFetch<Role & { permissions: Permission[] }>(`/roles/${id}`),

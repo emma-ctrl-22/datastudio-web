@@ -68,7 +68,7 @@ export function useDeleteProductMutation(options?: UseMutationOptions<{ success:
 //? Product Image Hooks
 //================================================================================================
 
-export function useListProductImagesQuery(productId: string, options?: UseQueryOptions<ProductImage[], Error>) {
+export function useListProductImagesQuery(productId: string, options?: Omit<UseQueryOptions<ProductImage[], Error>, 'queryKey' | 'queryFn'>) {
   return useQuery<ProductImage[], Error>({
     queryKey: ['product-images', productId],
     queryFn: () => apiFetch<ProductImage[]>(`/products/${productId}/images`),

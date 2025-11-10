@@ -25,7 +25,7 @@ export function useListDispatchOrdersQuery(params: ListDispatchOrdersParams, opt
   });
 }
 
-export function useGetDispatchOrderQuery(id: string, options?: UseQueryOptions<DispatchOrder, Error>) {
+export function useGetDispatchOrderQuery(id: string, options?: Omit<UseQueryOptions<DispatchOrder, Error>, 'queryKey' | 'queryFn'>) {
   return useQuery<DispatchOrder, Error>({
     queryKey: ['dispatch-order', id],
     queryFn: () => apiFetch<DispatchOrder>(`/dispatch-orders/${id}`),

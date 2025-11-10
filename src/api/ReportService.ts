@@ -1,6 +1,6 @@
 import { useQuery, type UseQueryOptions } from '@tanstack/react-query';
 import { apiFetch } from '../utils/api';
-import type { DashboardSummary, LowStockAlert, EnhancedDashboardSummary } from '../types';
+import type { DashboardSummary, LowStockAlert, EnhancedDashboardSummary,DispatchHistoryListResponse,MoversReportListResponse,PurchaseHistoryListResponse,ListPurchaseHistoryParams,ListDispatchHistoryParams,ListMoversReportParams} from '../types';
 
 /**
  * Fetches the aggregated data for the main dashboard.
