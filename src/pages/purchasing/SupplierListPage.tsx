@@ -105,13 +105,13 @@ export function SupplierListPage() {
   ];
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title="Suppliers">
         {canCreate && <Button type="primary" onClick={() => navigate('/suppliers/new')}>Create Supplier</Button>}
       </PageHeader>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
+
       <SharedTable<Supplier>
         columns={columns}
         dataSource={suppliers || []}

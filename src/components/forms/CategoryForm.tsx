@@ -61,12 +61,14 @@ export function CategoryForm({ id, onSuccess, onCancel }: CategoryFormProps) {
         <Switch />
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          {isEditMode ? 'Update Category' : 'Create Category'}
-        </Button>
-        <Button style={{ marginLeft: 8 }} onClick={onCancel} disabled={isLoading}>
-          Cancel
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button type="primary" htmlType="submit" loading={isLoading} block>
+            {isEditMode ? 'Update Category' : 'Create Category'}
+          </Button>
+          <Button onClick={onCancel} disabled={isLoading} block>
+            Cancel
+          </Button>
+        </div>
       </Form.Item>
       {(createMutation.error || updateMutation.error) && (
         <Form.Item>

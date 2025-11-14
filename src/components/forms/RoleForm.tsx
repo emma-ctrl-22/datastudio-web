@@ -58,9 +58,9 @@ export function RoleForm({ id, onSuccess, onCancel }: RoleFormProps) {
       </Form.Item>
       <Form.Item name="permissions" label="Permissions">
         <Checkbox.Group style={{ width: '100%' }}>
-          <Row>
+          <Row gutter={[16, 8]}>
             {permissions?.map(p => (
-              <Col span={8} key={p.id}>
+              <Col xs={24} sm={12} md={8} key={p.id}>
                 <Checkbox value={p.id}>{`${p.resource}: ${p.action}`}</Checkbox>
               </Col>
             ))}
@@ -68,12 +68,14 @@ export function RoleForm({ id, onSuccess, onCancel }: RoleFormProps) {
         </Checkbox.Group>
       </Form.Item>
       <Form.Item>
-        <Button type="primary" htmlType="submit" loading={isLoading}>
-          {isEditMode ? 'Update Role' : 'Create Role'}
-        </Button>
-        <Button style={{ marginLeft: 8 }} onClick={onCancel} disabled={isLoading}>
-          Cancel
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button type="primary" htmlType="submit" loading={isLoading} block>
+            {isEditMode ? 'Update Role' : 'Create Role'}
+          </Button>
+          <Button onClick={onCancel} disabled={isLoading} block>
+            Cancel
+          </Button>
+        </div>
       </Form.Item>
       {(createMutation.error || updateMutation.error) && (
         <Form.Item>

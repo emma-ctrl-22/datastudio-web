@@ -110,12 +110,12 @@ export function StockMovementPage() {
     <div>
       <PageHeader title="Stock Movement History" />
 
-      <Space className="mb-4">
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
         <Select
           placeholder="Filter by product"
           loading={isLoadingProducts}
           onChange={(value) => setFilters(prev => ({ ...prev, product_id: value, page: 1 }))}
-          style={{ width: 250 }}
+          style={{ width: '100%', maxWidth: 250 }}
           allowClear
           showSearch
           optionFilterProp="children"
@@ -129,15 +129,15 @@ export function StockMovementPage() {
         <Select
           placeholder="Filter by type"
           onChange={(value: 'in' | 'out' | 'adjustment' | undefined) => setFilters(prev => ({ ...prev, movement_type: value, page: 1 }))}
-          style={{ width: 150 }}
+          style={{ width: '100%', maxWidth: 150 }}
           allowClear
         >
           <Select.Option value="in">In</Select.Option>
           <Select.Option value="out">Out</Select.Option>
           <Select.Option value="adjustment">Adjustment</Select.Option>
         </Select>
-        <RangePicker onChange={handleDateRangeChange} />
-      </Space>
+        <RangePicker onChange={handleDateRangeChange} style={{ width: '100%', maxWidth: 300 }} />
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
       

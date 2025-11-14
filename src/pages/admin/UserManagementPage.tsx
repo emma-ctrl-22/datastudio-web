@@ -147,18 +147,18 @@ export function UserManagementPage() {
       dataIndex: 'roles',
       key: 'roles',
       render: (roles: Role[]) => (
-        <Space>
+        <div className="flex flex-wrap gap-1">
           {roles.map((role: Role) => (
             <Tag key={role.id}>{role.name}</Tag>
           ))}
-        </Space>
+        </div>
       ),
     },
     {
       title: 'Actions',
       key: 'actions',
       render: (_, record: UserListItem) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           {canManageRoles && (
             <Button type="link" onClick={() => handleEditRoles(record)}>Edit Roles</Button>
           )}
@@ -174,7 +174,7 @@ export function UserManagementPage() {
               </Button>
             </Popconfirm>
           )}
-        </Space>
+        </div>
       ),
     },
   ];
@@ -184,9 +184,9 @@ export function UserManagementPage() {
   }
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="User Management">
-        <Space>
+        <div className="flex flex-col sm:flex-row gap-2">
           {canCreateUsers && (
             <Button type="primary" onClick={() => setIsUserModalVisible(true)}>
               Create User
@@ -197,22 +197,24 @@ export function UserManagementPage() {
               Manage Roles
             </Button>
           )}
-        </Space>
+        </div>
       </PageHeader>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
-      <SharedTable<UserListItem>
-        columns={columns}
-        dataSource={users?.items || []}
-        loading={isLoading}
-        pagination={{
-          current: filters.page,
-          pageSize: filters.pageSize,
-          total: users?.total || 0,
-        }}
-        onChange={handleTableChange}
-      />
+
+      <div className="overflow-x-auto">
+        <SharedTable<UserListItem>
+          columns={columns}
+          dataSource={users?.items || []}
+          loading={isLoading}
+          pagination={{
+            current: filters.page,
+            pageSize: filters.pageSize,
+            total: users?.total || 0,
+          }}
+          onChange={handleTableChange}
+        />
+      </div>
 
       <Modal
         title={`Edit Roles for ${currentUser?.username}`}

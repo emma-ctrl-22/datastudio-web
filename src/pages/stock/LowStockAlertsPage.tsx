@@ -41,11 +41,11 @@ export function LowStockAlertsPage() {
   ];
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title="Low Stock Alerts" />
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
+
       <SharedTable<LowStockAlert>
         columns={columns}
         dataSource={lowStockAlerts?.map(alert => ({ ...alert, id: alert.product_id })) || []}

@@ -69,7 +69,7 @@ export function RoleManagementPage() {
       title: 'Actions',
       key: 'actions',
       render: (_, record: Role) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           {canUpdateRoles && <Button onClick={() => handleEdit(record.id)}>Edit</Button>}
           {canDeleteRoles && (
             <Popconfirm
@@ -82,7 +82,7 @@ export function RoleManagementPage() {
               <Button danger>Delete</Button>
             </Popconfirm>
           )}
-        </Space>
+        </div>
       ),
     },
   ];
@@ -92,18 +92,20 @@ export function RoleManagementPage() {
   }
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="Role Management">
         {canCreateRoles && <Button type="primary" onClick={handleCreate}>Create Role</Button>}
       </PageHeader>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
-      <SharedTable<Role>
-        columns={columns}
-        dataSource={roles || []}
-        loading={isLoading}
-      />
+
+      <div className="overflow-x-auto">
+        <SharedTable<Role>
+          columns={columns}
+          dataSource={roles || []}
+          loading={isLoading}
+        />
+      </div>
 
       <Modal
         title={editingRoleId ? 'Edit Role' : 'Create Role'}

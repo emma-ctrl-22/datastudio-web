@@ -53,23 +53,23 @@ export function FastMovingItemsReportPage() {
   }
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title="Fast-Moving Items Report">
         <Button type="primary" onClick={handleExportCSV}>Export to CSV</Button>
       </PageHeader>
 
-      <Space className="mb-4">
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
         <Select
           placeholder="Time Window"
           onChange={(value: '30d' | '90d' | '1y' | undefined) => setFilters(prev => ({ ...prev, time_window: value, page: 1 }))}
           value={filters.time_window}
-          style={{ width: 150 }}
+          style={{ width: '100%', maxWidth: 150 }}
         >
           <Option value="30d">Last 30 Days</Option>
           <Option value="90d">Last 90 Days</Option>
           <Option value="1y">Last 1 Year</Option>
         </Select>
-      </Space>
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
       

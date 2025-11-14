@@ -70,11 +70,11 @@ export function SupplierDetailPage() {
   ];
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title={`Supplier: ${supplier?.name}`} />
 
       <Card title="Supplier Details" style={{ marginBottom: 24 }}>
-        <Descriptions bordered column={2}>
+        <Descriptions bordered column={{ xs: 1, md: 2 }}>
           <Descriptions.Item label="Supplier Code">{supplier?.supplier_code}</Descriptions.Item>
           <Descriptions.Item label="Name">{supplier?.name}</Descriptions.Item>
           <Descriptions.Item label="Contact Person">{supplier?.contact_person || 'N/A'}</Descriptions.Item>
@@ -89,13 +89,16 @@ export function SupplierDetailPage() {
       </Card>
 
       <Card title="Products Supplied">
-        <Table
-          columns={productColumns}
-          dataSource={productSuppliers || []}
-          loading={isLoadingProductSuppliers}
-          rowKey="id"
-          pagination={{ pageSize: 10 }}
-        />
+        <div style={{ overflowX: 'auto' }}>
+          <Table
+            columns={productColumns}
+            dataSource={productSuppliers || []}
+            loading={isLoadingProductSuppliers}
+            rowKey="id"
+            pagination={{ pageSize: 10 }}
+            scroll={{ x: 'max-content' }}
+          />
+        </div>
       </Card>
     </div>
   );

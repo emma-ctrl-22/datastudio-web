@@ -114,7 +114,7 @@ export function DispatchOrderListPage() {
       title: 'Actions',
       key: 'actions',
       render: (_, record: DispatchOrder) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           {canRead && <Link to={`/dispatch/${record.id}`}>View</Link>}
           {canUpdate && record.status !== 'delivered' && record.status !== 'cancelled' && (
             <Button type="link" onClick={() => navigate(`/dispatch/${record.id}/edit`)}>Edit Status</Button>
@@ -130,22 +130,22 @@ export function DispatchOrderListPage() {
               <Button type="link" danger>Delete</Button>
             </Popconfirm>
           )}
-        </Space>
+        </div>
       ),
     },
   ];
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="Dispatch Orders">
         {canCreate && <Button type="primary" onClick={() => navigate('/dispatch/new')}>Create Dispatch Order</Button>}
       </PageHeader>
 
-      <Space className="mb-4">
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
         <Select
           placeholder="Filter by recipient type"
           onChange={(value) => setFilters(prev => ({ ...prev, recipient_type: value, page: 1 }))}
-          style={{ width: 180 }}
+          style={{ width: '100%', maxWidth: 180 }}
           allowClear
         >
           <Select.Option value="hospital">Hospital</Select.Option>
@@ -156,7 +156,7 @@ export function DispatchOrderListPage() {
         <Select
           placeholder="Filter by status"
           onChange={(value) => setFilters(prev => ({ ...prev, status: value, page: 1 }))}
-          style={{ width: 150 }}
+          style={{ width: '100%', maxWidth: 150 }}
           allowClear
         >
           <Select.Option value="draft">Draft</Select.Option>
@@ -165,22 +165,24 @@ export function DispatchOrderListPage() {
           <Select.Option value="delivered">Delivered</Select.Option>
           <Select.Option value="cancelled">Cancelled</Select.Option>
         </Select>
-        <RangePicker onChange={handleDateRangeChange} />
-      </Space>
+        <RangePicker onChange={handleDateRangeChange} className="w-full sm:w-auto" />
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
-      <SharedTable<DispatchOrder>
-        columns={columns}
-        dataSource={dispatchOrders?.items || []}
-        loading={isLoading}
-        pagination={{
-          current: filters.page,
-          pageSize: filters.pageSize,
-          total: dispatchOrders?.total || 0,
-        }}
-        onChange={handleTableChange}
-      />
+
+      <div className="overflow-x-auto">
+        <SharedTable<DispatchOrder>
+          columns={columns}
+          dataSource={dispatchOrders?.items || []}
+          loading={isLoading}
+          pagination={{
+            current: filters.page,
+            pageSize: filters.pageSize,
+            total: dispatchOrders?.total || 0,
+          }}
+          onChange={handleTableChange}
+        />
+      </div>
     </div>
   );
 }

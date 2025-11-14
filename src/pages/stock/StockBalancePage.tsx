@@ -66,12 +66,12 @@ export function StockBalancePage() {
     <div>
       <PageHeader title="Current Stock Levels" />
 
-      <Space className="mb-4">
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
         <Select
           placeholder="Filter by product"
           loading={isLoadingProducts}
           onChange={(value) => setFilters(prev => ({ ...prev, product_id: value }))}
-          style={{ width: 250 }}
+          style={{ width: '100%', maxWidth: 250 }}
           allowClear
           showSearch
           optionFilterProp="children"
@@ -82,7 +82,7 @@ export function StockBalancePage() {
         >
           {products?.items.map(product => <Select.Option key={product.id} value={product.id}>{product.name} ({product.product_code})</Select.Option>)}
         </Select>
-      </Space>
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
       

@@ -101,7 +101,7 @@ export function PurchaseOrderPage() {
   const isViewing = isEditMode && !canUpdate; // If in edit mode but no update permission, it's view-only
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title={isEditMode ? `Purchase Order: ${purchaseOrder?.po_number}` : 'Create Purchase Order'} />
 
       <Card>
@@ -116,12 +116,12 @@ export function PurchaseOrderPage() {
           }}
         >
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="po_number" label="PO Number" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="supplier_id" label="Supplier" rules={[{ required: true }]}>
                 <Select loading={isLoadingSuppliers} placeholder="Select a supplier">
                   {suppliers?.map((supplier) => (
@@ -134,12 +134,12 @@ export function PurchaseOrderPage() {
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="order_date" label="Order Date" rules={[{ required: true }]}>
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="status" label="Status">
                 <Tag color="blue">{purchaseOrder?.status.toUpperCase() || 'DRAFT'}</Tag>
               </Form.Item>
@@ -154,12 +154,12 @@ export function PurchaseOrderPage() {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                  <div key={key} className="flex flex-col md:flex-row gap-2 mb-2 items-start md:items-baseline">
                     <Form.Item
                       {...restField}
                       name={[name, 'product_id']}
                       rules={[{ required: true, message: 'Missing product' }]}
-                      style={{ width: 250 }}
+                      style={{ width: '100%', maxWidth: 250 }}
                     >
                       <Select loading={isLoadingProducts} placeholder="Select product" showSearch optionFilterProp="children">
                         {products?.items.map((product) => (
@@ -186,7 +186,7 @@ export function PurchaseOrderPage() {
                     {!isViewing && (
                       <MinusCircleOutlined onClick={() => remove(name)} />
                     )}
-                  </Space>
+                  </div>
                 ))}
                 {!isViewing && (
                   <Form.Item>

@@ -197,7 +197,7 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: ProductSupplier) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             icon={<EditOutlined />}
             onClick={() => {
@@ -214,7 +214,7 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
           >
             <Button icon={<DeleteOutlined />} danger />
           </Popconfirm>
-        </Space>
+        </div>
       ),
     },
   ];
@@ -241,15 +241,17 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: ProductImage) => (
-        <Popconfirm
-          title="Delete the image"
-          description="Are you sure you want to delete this image?"
-          onConfirm={() => deleteProductImageMutation.mutate(record.id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button icon={<DeleteOutlined />} danger />
-        </Popconfirm>
+        <div className="flex justify-center">
+          <Popconfirm
+            title="Delete the image"
+            description="Are you sure you want to delete this image?"
+            onConfirm={() => deleteProductImageMutation.mutate(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button icon={<DeleteOutlined />} danger />
+          </Popconfirm>
+        </div>
       ),
     },
   ];
@@ -345,12 +347,14 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
             )}
 
             <Form.Item>
-              <Button type="primary" htmlType="submit" loading={isLoading}>
-                {isEditMode ? 'Update Product' : 'Create Product'}
-              </Button>
-              <Button style={{ marginLeft: 8 }} onClick={onCancel} disabled={isLoading}>
-                Cancel
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button type="primary" htmlType="submit" loading={isLoading} block>
+                  {isEditMode ? 'Update Product' : 'Create Product'}
+                </Button>
+                <Button onClick={onCancel} disabled={isLoading} block>
+                  Cancel
+                </Button>
+              </div>
             </Form.Item>
             {(createProductMutation.error || updateProductMutation.error) && (
               <Form.Item>
@@ -380,13 +384,15 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
               {productSuppliersError && (
                 <Alert message="Error" description={productSuppliersError.message} type="error" showIcon />
               )}
-              <Table
-                columns={supplierColumns}
-                dataSource={productSuppliers || []}
-                loading={isLoadingProductSuppliers}
-                rowKey="id"
-                pagination={false}
-              />
+              <div className="overflow-x-auto">
+                <Table
+                  columns={supplierColumns}
+                  dataSource={productSuppliers || []}
+                  loading={isLoadingProductSuppliers}
+                  rowKey="id"
+                  pagination={false}
+                />
+              </div>
             </TabPane>
           )}
 
@@ -403,13 +409,15 @@ export function ProductForm({ id, onSuccess, onCancel }: ProductFormProps) {
               {productImagesError && (
                 <Alert message="Error" description={productImagesError.message} type="error" showIcon />
               )}
-              <Table
-                columns={imageColumns}
-                dataSource={productImages || []}
-                loading={isLoadingProductImages}
-                rowKey="id"
-                pagination={false}
-              />
+              <div className="overflow-x-auto">
+                <Table
+                  columns={imageColumns}
+                  dataSource={productImages || []}
+                  loading={isLoadingProductImages}
+                  rowKey="id"
+                  pagination={false}
+                />
+              </div>
             </TabPane>
           )}
         </Tabs>

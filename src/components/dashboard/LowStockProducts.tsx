@@ -35,14 +35,17 @@ export function LowStockProducts({ data, loading }: LowStockProductsProps) {
   ];
 
   return (
-    <Table
-      title={() => 'Low Stock Products'}
-      columns={columns}
-      dataSource={data}
-      loading={loading}
-      rowKey="product_id"
-      pagination={false}
-      size="small"
-    />
+    <div className="overflow-x-auto">
+      <Table
+        title={() => 'Low Stock Products'}
+        columns={columns}
+        dataSource={data}
+        loading={loading}
+        rowKey="product_id"
+        pagination={false}
+        size="small"
+        scroll={{ x: 'max-content' }}
+      />
+    </div>
   );
 }

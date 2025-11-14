@@ -142,18 +142,18 @@ export function GoodsReceiptPage() {
   ];
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title={`Receive Goods for PO: ${purchaseOrder.po_number}`} />
 
       <Card>
         <Form form={form} layout="vertical" onFinish={onFinish} disabled={isLoading}>
           <Row gutter={16}>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="grn_number" label="GRN Number" rules={[{ required: true }]}>
                 <Input />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="received_date" label="Received Date" rules={[{ required: true }]}>
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
@@ -166,12 +166,15 @@ export function GoodsReceiptPage() {
           <h3>Purchase Order Lines</h3>
           <Form.List name="lines">
             {(fields) => (
-              <Table
-                dataSource={fields.map((field, index) => ({ ...field, ...form.getFieldValue(['lines', index]) }))}
-                columns={columns}
-                pagination={false}
-                rowKey="po_line_id"
-              />
+              <div style={{ overflowX: 'auto' }}>
+                <Table
+                  dataSource={fields.map((field, index) => ({ ...field, ...form.getFieldValue(['lines', index]) }))}
+                  columns={columns}
+                  pagination={false}
+                  rowKey="po_line_id"
+                  scroll={{ x: 'max-content' }}
+                />
+              </div>
             )}
           </Form.List>
 

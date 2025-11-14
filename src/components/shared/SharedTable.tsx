@@ -37,16 +37,19 @@ export function SharedTable<T extends { id: string | number }>({
   ...rest
 }: TableProps<T>) {
   return (
-    <Table<T>
-      rowKey="id"
-      columns={columns}
-      dataSource={dataSource}
-      loading={loading}
-      pagination={{
-        showSizeChanger: true,
-        showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-      }}
-      {...rest}
-    />
+    <div style={{ overflowX: 'auto' }}>
+      <Table<T>
+        rowKey="id"
+        columns={columns}
+        dataSource={dataSource}
+        loading={loading}
+        scroll={{ x: 'max-content' }}
+        pagination={{
+          showSizeChanger: true,
+          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+        }}
+        {...rest}
+      />
+    </div>
   );
 }

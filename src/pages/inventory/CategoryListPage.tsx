@@ -91,7 +91,7 @@ export function CategoryListPage() {
       title: 'Actions',
       key: 'actions',
       render: (_, record: Category) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           {canUpdate && <Button onClick={() => handleEdit(record.id)}>Edit</Button>}
           {canDelete && (
             <Popconfirm
@@ -104,24 +104,26 @@ export function CategoryListPage() {
               <Button danger>Delete</Button>
             </Popconfirm>
           )}
-        </Space>
+        </div>
       ),
     },
   ];
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="Categories">
         {canCreate && <Button type="primary" onClick={handleCreate}>Create Category</Button>}
       </PageHeader>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
-      <SharedTable<Category>
-        columns={columns}
-        dataSource={categories || []}
-        loading={isLoading}
-      />
+
+      <div className="overflow-x-auto">
+        <SharedTable<Category>
+          columns={columns}
+          dataSource={categories || []}
+          loading={isLoading}
+        />
+      </div>
 
       <Modal
         title={editingCategoryId ? 'Edit Category' : 'Create Category'}

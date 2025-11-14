@@ -13,7 +13,7 @@ export function SupplierFormPage() {
   };
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title={isEditMode ? 'Edit Supplier' : 'Create Supplier'} />
       <Card>
         <SupplierForm id={id} onSuccess={handleSuccess} onCancel={() => navigate('/suppliers')} />

@@ -33,7 +33,7 @@ export default function Dashboard() {
     .reduce((acc, s) => acc + s.count, 0);
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="Dashboard" />
       <Row gutter={[16, 16]}>
         {/* Key Metrics */}

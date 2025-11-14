@@ -72,17 +72,17 @@ export function DispatchHistoryReportPage() {
   }
 
   return (
-    <div>
+    <div className="p-4 md:p-0">
       <PageHeader title="Dispatch History Report">
         <Button type="primary" onClick={handleExportCSV}>Export to CSV</Button>
       </PageHeader>
 
-      <Space className="mb-4">
-        <RangePicker onChange={handleDateRangeChange} />
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
+        <RangePicker onChange={handleDateRangeChange} style={{ width: '100%', maxWidth: 300 }} />
         <Select
           placeholder="Filter by Product"
           onChange={(value) => setFilters(prev => ({ ...prev, product_id: value, page: 1 }))}
-          style={{ width: 200 }}
+          style={{ width: '100%', maxWidth: 200 }}
           loading={isLoadingProducts}
           allowClear
           showSearch
@@ -95,7 +95,7 @@ export function DispatchHistoryReportPage() {
         <Select
           placeholder="Filter by Recipient Type"
           onChange={(value) => setFilters(prev => ({ ...prev, recipient_type: value, page: 1 }))}
-          style={{ width: 180 }}
+          style={{ width: '100%', maxWidth: 180 }}
           allowClear
         >
           <Option value="hospital">Hospital</Option>
@@ -103,7 +103,7 @@ export function DispatchHistoryReportPage() {
           <Option value="customer">Customer</Option>
           <Option value="internal">Internal</Option>
         </Select>
-      </Space>
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
       

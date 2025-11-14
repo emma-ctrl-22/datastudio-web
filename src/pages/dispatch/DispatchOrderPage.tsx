@@ -104,7 +104,7 @@ export function DispatchOrderPage() {
   const isViewing = isEditMode && !canUpdate;
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title={isEditMode ? `Dispatch Order: ${dispatchOrder?.dispatch_number}` : 'Create Dispatch Order'} />
 
       <Card>
@@ -183,12 +183,12 @@ export function DispatchOrderPage() {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }) => (
-                  <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
+                  <div key={key} className="flex flex-col sm:flex-row gap-2 mb-2 items-start sm:items-baseline">
                     <Form.Item
                       {...restField}
                       name={[name, 'product_id']}
                       rules={[{ required: true, message: 'Missing product' }]}
-                      style={{ width: 400 }}
+                      className="flex-1"
                     >
                       <Select
                         loading={isLoadingProducts}
@@ -196,6 +196,7 @@ export function DispatchOrderPage() {
                         showSearch
                         optionFilterProp="children"
                         disabled={isEditMode}
+                        className="w-full"
                       >
                         {products?.items.map((product) => (
                           <Option key={product.id} value={product.id}>
@@ -208,13 +209,14 @@ export function DispatchOrderPage() {
                       {...restField}
                       name={[name, 'quantity']}
                       rules={[{ required: true, message: 'Missing quantity' }]}
+                      className="w-full sm:w-32"
                     >
-                      <InputNumber min={1} placeholder="Quantity" disabled={isEditMode} />
+                      <InputNumber min={1} placeholder="Quantity" disabled={isEditMode} className="w-full" />
                     </Form.Item>
                     {!isViewing && !isEditMode && (
-                      <MinusCircleOutlined onClick={() => remove(name)} />
+                      <MinusCircleOutlined onClick={() => remove(name)} className="mt-2 sm:mt-0" />
                     )}
-                  </Space>
+                  </div>
                 ))}
                 {!isViewing && !isEditMode && (
                   <Form.Item>
@@ -228,14 +230,16 @@ export function DispatchOrderPage() {
           </Form.List>
 
           <Form.Item>
-            {!isViewing && (
-              <Button type="primary" htmlType="submit" loading={isLoading}>
-                {isEditMode ? 'Update Dispatch Order' : 'Create Dispatch Order'}
+            <div className="flex flex-col sm:flex-row gap-2">
+              {!isViewing && (
+                <Button type="primary" htmlType="submit" loading={isLoading} block>
+                  {isEditMode ? 'Update Dispatch Order' : 'Create Dispatch Order'}
+                </Button>
+              )}
+              <Button onClick={() => navigate('/dispatch')} disabled={isLoading} block>
+                Cancel
               </Button>
-            )}
-            <Button style={{ marginLeft: 8 }} onClick={() => navigate('/dispatch')} disabled={isLoading}>
-              Cancel
-            </Button>
+            </div>
           </Form.Item>
           {(createMutation.error || updateMutation.error) && (
             <Form.Item>

@@ -13,7 +13,7 @@ export function ProductFormPage() {
   };
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title={isEditMode ? 'Edit Product' : 'Create Product'} />
       <Card>
         <ProductForm id={id} onSuccess={handleSuccess} onCancel={() => navigate('/products')} />

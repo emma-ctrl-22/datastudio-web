@@ -145,12 +145,12 @@ export function PurchaseOrderListPage() {
         {canCreate && <Button type="primary" onClick={() => navigate('/po/new')}>Create Purchase Order</Button>}
       </PageHeader>
 
-      <Space className="mb-4">
+      <div className="flex flex-col md:flex-row gap-4 mb-4">
         <Select
           placeholder="Filter by supplier"
           loading={isLoadingSuppliers}
           onChange={(value: string | undefined) => setFilters(prev => ({ ...prev, supplier_id: value, page: 1 }))}
-          style={{ width: 200 }}
+          style={{ width: '100%', maxWidth: 200 }}
           allowClear
           showSearch
           optionFilterProp="children"
@@ -167,7 +167,7 @@ export function PurchaseOrderListPage() {
         <Select
           placeholder="Filter by status"
           onChange={(value: PurchaseOrder['status'] | undefined) => setFilters(prev => ({ ...prev, status: value, page: 1 }))}
-          style={{ width: 150 }}
+          style={{ width: '100%', maxWidth: 150 }}
           allowClear
         >
           <Select.Option value="draft">Draft</Select.Option>
@@ -176,8 +176,8 @@ export function PurchaseOrderListPage() {
           <Select.Option value="received">Received</Select.Option>
           <Select.Option value="cancelled">Cancelled</Select.Option>
         </Select>
-        <RangePicker onChange={handleDateRangeChange} />
-      </Space>
+        <RangePicker onChange={handleDateRangeChange} style={{ width: '100%', maxWidth: 300 }} />
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
       

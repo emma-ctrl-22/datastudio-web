@@ -92,7 +92,7 @@ export function ProductListPage() {
       title: 'Actions',
       key: 'actions',
       render: (_, record: Product) => (
-        <Space size="middle">
+        <div className="flex flex-col sm:flex-row gap-2">
           {canUpdate && <Link to={`/products/${record.id}/edit`}>Edit</Link>}
           {canDelete && (
             <Popconfirm
@@ -105,48 +105,50 @@ export function ProductListPage() {
               <Button type="link" danger>Delete</Button>
             </Popconfirm>
           )}
-        </Space>
+        </div>
       ),
     },
   ];
 
   return (
-    <div>
+    <div className="p-4">
       <PageHeader title="Products">
         {canCreate && <Button type="primary" onClick={() => navigate('/products/new')}>Create Product</Button>}
       </PageHeader>
 
-      <Space className="mb-4">
+      <div className="flex flex-col sm:flex-row gap-4 mb-4">
         <Search
           placeholder="Search by name or code"
           onSearch={(value) => setFilters(prev => ({ ...prev, search: value, page: 1 }))}
-          style={{ width: 250 }}
+          style={{ width: '100%', maxWidth: 250 }}
           allowClear
         />
         <Select
           placeholder="Filter by category"
           loading={isLoadingCategories}
           onChange={(value) => setFilters(prev => ({ ...prev, category_id: value, page: 1 }))}
-          style={{ width: 200 }}
+          style={{ width: '100%', maxWidth: 200 }}
           allowClear
         >
           {categories?.map(cat => <Select.Option key={cat.id} value={cat.id}>{cat.name}</Select.Option>)}
         </Select>
-      </Space>
+      </div>
 
       {error && <Alert message="Error" description={error.message} type="error" showIcon className="mb-4" />}
-      
-      <SharedTable<Product>
-        columns={columns}
-        dataSource={data?.items || []}
-        loading={isLoading}
-        pagination={{
-          current: filters.page,
-          pageSize: filters.pageSize,
-          total: data?.total || 0,
-        }}
-        onChange={handleTableChange}
-      />
+
+      <div className="overflow-x-auto">
+        <SharedTable<Product>
+          columns={columns}
+          dataSource={data?.items || []}
+          loading={isLoading}
+          pagination={{
+            current: filters.page,
+            pageSize: filters.pageSize,
+            total: data?.total || 0,
+          }}
+          onChange={handleTableChange}
+        />
+      </div>
     </div>
   );
 }
