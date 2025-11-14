@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Select, Space, Alert, Tag, DatePicker } from 'antd';
+import { Select, Alert, Tag, DatePicker } from 'antd';
 import { PageHeader } from '../../components/shared/PageHeader';
 import { SharedTable } from '../../components/shared/SharedTable';
 import { useListStockMovementsQuery } from '../../api/StockService';
