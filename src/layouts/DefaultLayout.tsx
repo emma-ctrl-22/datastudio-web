@@ -203,35 +203,39 @@ export default function DefaultLayout() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider breakpoint="lg" collapsedWidth="0" width={250}>
-        <div className="flex items-center justify-center">
-          <img
-            src={logo}
-            alt="DataStudio Logo"
-            style={{
-              maxWidth: '160px',
-              width: '100%',
-              height: '70%',
-              objectFit: 'contain',
-              background: 'none',
-              display: 'block'
-            }}
-          />
+      <Sider breakpoint="lg" collapsedWidth="0" width={250} style={{ height: '100vh', position: 'fixed', left: 0, top: 0, overflow: 'hidden', zIndex: 100 }}>
+        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+          <div className="flex items-center justify-center" style={{ padding: '16px 0', flex: '0 0 auto' }}>
+            <img
+              src={logo}
+              alt="DataStudio Logo"
+              style={{
+                maxWidth: '160px',
+                width: '100%',
+                height: '70%',
+                objectFit: 'contain',
+                background: 'none',
+                display: 'block'
+              }}
+            />
+          </div>
+          <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
+            <Menu
+              theme="dark"
+              mode="inline"
+              selectedKeys={[selectedKey]}
+              items={antdMenu}
+            />
+          </div>
         </div>
-        <Menu
-          theme="dark"
-          mode="inline"
-          selectedKeys={[selectedKey]}
-          items={antdMenu}
-        />
       </Sider>
-      <Layout>
+      <Layout style={{ marginLeft: 250 }}>
         <Header style={{ background: '#fff', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f0f0f0' }}>
           <Typography.Title level={4} style={{ margin: 0 }}>Inventory Management</Typography.Title>
           <UserProfile />
         </Header>
-        <Content style={{ margin: '24px 16px' }}>
-          <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 112px)', borderRadius: 8 }}>
+        <Content style={{ margin: '24px 16px', height: 'calc(100vh - 64px)', overflow: 'auto' }}>
+          <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 112px)', borderRadius: 8, height: '100%', overflow: 'auto' }}>
             <Outlet />
           </div>
         </Content>
