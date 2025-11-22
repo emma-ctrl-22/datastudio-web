@@ -211,7 +211,7 @@ export default function DefaultLayout() {
             style={{
               maxWidth: '160px',
               width: '100%',
-              height: 'auto',
+              height: '70%',
               objectFit: 'contain',
               background: 'none',
               display: 'block'
