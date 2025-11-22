@@ -14,8 +14,24 @@ export async function apiFetch<T>(path: string, options: RequestInit = {}): Prom
 
   const body = options.body ? JSON.stringify(sanitizeObject(JSON.parse(options.body as string))) : undefined;
   const res = await fetch(`${API_BASE}${path}`, { ...options, headers, body });
-  if (!res.ok) throw new Error(await res.text());
+
+  if (!res.ok) {
+    let errorText = await res.text();
+    let errorObj: { error?: string } = {};
+    try {
+      errorObj = JSON.parse(errorText);
+    } catch {
+      errorObj.error = errorText;
+    }
+
+    // Handle invalid user: log out
+    if (errorObj.error === 'Invalid user') {
+      useAuthStore.getState().clear();
+    }
+
+    // Attach error type for illustration mapping
+    throw { error: errorObj.error || 'Unknown error', status: res.status };
+  }
+
   return res.json();
 }
-
-
