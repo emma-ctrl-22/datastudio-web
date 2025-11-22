@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import { useLoginMutation } from '../api/UserService';
 import { useAuthStore } from '../store/auth';
 import { sanitizeString } from '../utils/sanitize';
+import logo from '../assets/logo.png';
 
 export default function Login() {
   const setAuth = useAuthStore(s => s.setAuth);
@@ -30,8 +31,19 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       <div className="w-full max-w-lg">
-        <div className="text-center mb-6">
-          <Typography.Title style={{ margin: 0 }}>DataStudio</Typography.Title>
+        <div className="text-center mb-6 flex flex-col items-center">
+          <img
+            src={logo}
+            alt="DataStudio Logo"
+            style={{
+              maxWidth: '160px',
+              width: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+              background: 'none',
+              display: 'block'
+            }}
+          />
           <Typography.Text type="secondary">Inventory Management System</Typography.Text>
         </div>
         <Card className="shadow-md">
@@ -45,7 +57,7 @@ export default function Login() {
             </div>
           )}
           <Form layout="vertical" onFinish={onFinish} autoComplete="off" disabled={mut.isPending}>
-            <Form.Item label="Username or Email" required rules={[{ required: true, message: 'Please enter your username or email' }] }>
+            <Form.Item label="Username or Email" required rules={[{ required: true, message: 'Please enter your username or email' }]}>
               <Input
                 value={usernameOrEmail}
                 onChange={(e) => setU(e.target.value)}
@@ -53,7 +65,7 @@ export default function Login() {
                 size="large"
               />
             </Form.Item>
-            <Form.Item label="Password" required rules={[{ required: true, message: 'Please enter your password' }] }>
+            <Form.Item label="Password" required rules={[{ required: true, message: 'Please enter your password' }]}>
               <Input.Password
                 value={password}
                 onChange={(e) => setP(e.target.value)}

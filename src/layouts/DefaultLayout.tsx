@@ -4,6 +4,7 @@ import { useMemo, useCallback } from 'react';
 import { useAuthStore } from '../store/auth';
 import { hasPermission } from '../utils/permissions';
 import { useGetUserQuery } from '../api/UserService';
+import logo from '../assets/logo.png';
 import {
   DatabaseOutlined,
   AppstoreOutlined,
@@ -204,8 +205,18 @@ export default function DefaultLayout() {
     <Layout style={{ minHeight: '100vh' }}>
       <Sider breakpoint="lg" collapsedWidth="0" width={250}>
         <div className="flex items-center justify-center p-4">
-          <DatabaseOutlined style={{ fontSize: '28px', color: '#fff' }} />
-          <Typography.Title level={3} style={{ color: '#fff', margin: '0 0 0 12px' }}>DataStudio</Typography.Title>
+          <img
+            src={logo}
+            alt="DataStudio Logo"
+            style={{
+              maxWidth: '160px',
+              width: '100%',
+              height: 'auto',
+              objectFit: 'contain',
+              background: 'none',
+              display: 'block'
+            }}
+          />
         </div>
         <Menu
           theme="dark"
