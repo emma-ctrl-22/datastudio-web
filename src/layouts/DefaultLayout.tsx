@@ -204,7 +204,7 @@ export default function DefaultLayout() {
   return (
     <Layout style={{ minHeight: '100vh' }}>
       <Sider breakpoint="lg" collapsedWidth="0" width={250}>
-        <div className="flex items-center justify-center p-4">
+        <div className="flex items-center justify-center">
           <img
             src={logo}
             alt="DataStudio Logo"
