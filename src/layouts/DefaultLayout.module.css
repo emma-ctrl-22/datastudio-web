@@ -1,0 +1,27 @@
+/* Responsive Sider and Logo */
+.custom-sider {
+  width: 100vw;
+  max-width: 250px;
+}
+
+.sider-logo {
+  max-width: 90px;
+  width: 60%;
+  height: auto;
+}
+
+@media (max-width: 768px) {
+  .custom-sider {
+    max-width: 100vw;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 100;
+  }
+  .sider-logo {
+    max-width: 60px;
+    width: 40%;
+    margin: 0 auto;
+  }
+}
