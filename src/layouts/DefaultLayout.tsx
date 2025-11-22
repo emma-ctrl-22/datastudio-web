@@ -4,7 +4,6 @@ import { useMemo, useCallback } from 'react';
 import { useAuthStore } from '../store/auth';
 import { hasPermission } from '../utils/permissions';
 import { useGetUserQuery } from '../api/UserService';
-import logo from '../assets/logo.png';
 import {
   DatabaseOutlined,
   AppstoreOutlined,
@@ -203,75 +202,25 @@ export default function DefaultLayout() {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        breakpoint="lg"
-        collapsedWidth="0"
-        width={250}
-        style={{
-          height: '100vh',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          overflow: 'hidden',
-          zIndex: 100,
-          width: '100vw',
-          maxWidth: '250px',
-        }}
-        className="custom-sider"
-      >
-        <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <div className="flex items-center justify-center" style={{ flex: '0 0 auto', padding: '12px 0' }}>
-            <img
-              src={logo}
-              alt="DataStudio Logo"
-              className="sider-logo"
-              style={{
-                maxWidth: '90px',
-                width: '60%',
-                height: 'auto',
-                objectFit: 'contain',
-                background: 'none',
-                display: 'block'
-              }}
-            />
-          </div>
-          <div style={{ flex: 1, minHeight: 0, overflowY: 'auto' }}>
-            <Menu
-              theme="dark"
-              mode="inline"
-              selectedKeys={[selectedKey]}
-              items={antdMenu}
-            />
-          </div>
+      <Sider breakpoint="lg" collapsedWidth="0" width={250}>
+        <div className="flex items-center justify-center p-4">
+          <DatabaseOutlined style={{ fontSize: '28px', color: '#fff' }} />
+          <Typography.Title level={3} style={{ color: '#fff', margin: '0 0 0 12px' }}>DataStudio</Typography.Title>
         </div>
+        <Menu
+          theme="dark"
+          mode="inline"
+          selectedKeys={[selectedKey]}
+          items={antdMenu}
+        />
       </Sider>
-  <Layout style={{ marginLeft: 250, width: '100vw', maxWidth: 'calc(100vw - 250px)' }}>
+      <Layout>
         <Header style={{ background: '#fff', padding: '0 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #f0f0f0' }}>
           <Typography.Title level={4} style={{ margin: 0 }}>Inventory Management</Typography.Title>
           <UserProfile />
         </Header>
-        <Content
-          style={{
-            margin: '24px 16px',
-            height: 'calc(100vh - 64px)',
-            overflow: 'auto',
-            width: '100vw',
-            maxWidth: '100vw',
-            padding: 0,
-          }}
-        >
-          <div
-            style={{
-              background: '#fff',
-              padding: 24,
-              minHeight: 'calc(100vh - 112px)',
-              borderRadius: 8,
-              height: '100%',
-              overflow: 'auto',
-              width: '100%',
-              maxWidth: '100vw',
-            }}
-          >
+        <Content style={{ margin: '24px 16px' }}>
+          <div style={{ background: '#fff', padding: 24, minHeight: 'calc(100vh - 112px)', borderRadius: 8 }}>
             <Outlet />
           </div>
         </Content>
